@@ -1,0 +1,6 @@
+- removed all uwp apps except Store
+- removed windows defender 💀
+- disabled windows update 💀
+- some tweaks in settings idk
+- no software is included
+- idk man i don't even remember
