@@ -26,13 +26,11 @@ if (-not $myWindowsPrincipal.IsInRole($adminRole))
 Set-Location $PSScriptRoot
 
 Import-Module .\library\Write-Menu.psm1 -DisableNameChecking
-Import-Module .\library\WinCore.psm1 -DisableNameChecking
 Clear-Host
 Import-Module .\library\PrivacyFunctions.psm1 -DisableNameChecking
 Import-Module .\library\Tweaks.psm1 -DisableNameChecking
 Import-Module .\library\GeneralFunctions.psm1 -DisableNameChecking
 Import-Module .\library\DebloatFunctions.psm1 -DisableNameChecking
-Import-Module .\library\UndoFunctions.psm1 -DisableNameChecking
 
 #Force TLS 1.2 for chocolatey support
 [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
@@ -52,6 +50,10 @@ setup
         DisableWindowsDefender
         DisableWindowsDefenderCloud
         RemoveOneDrive
+        RemoveDefaultApps
+        DisableCortana
+        RemoveIE
+        RemoveXboxBloat
     #Privacy fixes
         Write-Output "Applying privacy fixes..."
         DisableTelemetry
@@ -78,7 +80,6 @@ setup
         DisableAccessibilityKeys
         SetWinXMenuCMD
         EnableVerboseStartup
-        Write-Output "Restarting Explorer..."
         Write-Output "Killing Explorer process..."
         taskkill.exe /F /IM "explorer.exe"
         Write-Output "Restarting Explorer..."
@@ -95,7 +96,6 @@ setup
         choco install python3
         choco install microsoft-windows-terminal
         choco install itunes
-        choco install spotify
         choco install vlc
         choco install bitwarden
         choco install winaero-tweaker
@@ -103,6 +103,12 @@ setup
         choco install authy-desktop
         choco install winscp
         choco install 7zip
+        $temp = "$env:APPDATA\WindowsToolbox\"
+        $chromium = "https://github.com/Nifury/ungoogled-chromium-binaries/releases/download/97.0.4692.71-1/ungoogled-chromium_97.0.4692.71-1.1_installer-x64.exe"
+        Write-Output "Downloading ungoogled-chromium..."
+        Invoke-WebRequest -Uri $chromium -OutFile $temp\ungoogled-chromium-97.exe
+        Start-Process "$temp\ungoogled-chromium-97.exe"
+        MSDOSMode
     #Restart
         $confirm = Read-Host "Are you sure you want to restart? (y/n) Remember to save your work first"
         if($confirm -eq "y") {

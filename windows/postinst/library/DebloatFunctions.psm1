@@ -281,64 +281,6 @@ function RemoveOneDrive {
         Remove-Item -Recurse -Force $item.FullName
     }
 }
-
-function OptimizeUpdates {
-    Write-Output "Disabling automatic download and installation of Windows updates"
-    New-FolderForced -Path "HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\WindowsUpdate\AU"
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\WindowsUpdate\AU" "NoAutoUpdate" 0
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\WindowsUpdate\AU" "AUOptions" 2
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\WindowsUpdate\AU" "ScheduledInstallDay" 0
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\WindowsUpdate\AU" "ScheduledInstallTime" 3
-    
-    Write-Output "Disable seeding of updates to other computers via Group Policies"
-    New-FolderForced -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization"
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization" "DODownloadMode" 0
-    
-    #echo "Disabling automatic driver update"
-    #sp "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DriverSearching" "SearchOrderConfig" 0
-    
-    $objSID = New-Object System.Security.Principal.SecurityIdentifier "S-1-1-0"
-    $EveryOne = $objSID.Translate( [System.Security.Principal.NTAccount]).Value
-    
-    
-    Write-Output "Disable 'Updates are available' message"
-    
-    takeown /F "$env:WinDIR\System32\MusNotification.exe"
-    icacls "$env:WinDIR\System32\MusNotification.exe" /deny "$($EveryOne):(X)"
-    takeown /F "$env:WinDIR\System32\MusNotificationUx.exe"
-    icacls "$env:WinDIR\System32\MusNotificationUx.exe" /deny "$($EveryOne):(X)"
-}
-
-function DisableServices {
-    $services = @(
-        "diagnosticshub.standardcollector.service" # Microsoft (R) Diagnostics Hub Standard Collector Service
-        "DiagTrack"                                # Diagnostics Tracking Service
-        "dmwappushservice"                         # WAP Push Message Routing Service (see known issues)
-        "lfsvc"                                    # Geolocation Service
-        "MapsBroker"                               # Downloaded Maps Manager
-        "NetTcpPortSharing"                        # Net.Tcp Port Sharing Service
-        "RemoteAccess"                             # Routing and Remote Access
-        "RemoteRegistry"                           # Remote Registry
-        "SharedAccess"                             # Internet Connection Sharing (ICS)
-        "TrkWks"                                   # Distributed Link Tracking Client
-        "WbioSrvc"                                 # Windows Biometric Service (required for Fingerprint reader / facial detection)
-        #"WlanSvc"                                 # WLAN AutoConfig
-        "WMPNetworkSvc"                            # Windows Media Player Network Sharing Service
-        #"wscsvc"                                  # Windows Security Center Service
-        #"WSearch"                                 # Windows Search
-        "XblAuthManager"                           # Xbox Live Auth Manager
-        "XblGameSave"                              # Xbox Live Game Save Service
-        "XboxNetApiSvc"                            # Xbox Live Networking Service
-        "ndu"                                      # Windows Network Data Usage Monitor
-        # Services which cannot be disabled
-        #"WdNisSvc"
-    )
-    foreach ($service in $services) {
-        Write-Output "Trying to disable $service"
-        Get-Service -Name $service | Set-Service -StartupType Disabled
-    }
-}
-
 function DisableCortana {
     Write-Output "Disabling Cortana..."
     If (!(Test-Path "HKCU:\Software\Microsoft\Personalization\Settings")) {
@@ -364,14 +306,12 @@ function DisableCortana {
     Get-AppxPackage "Microsoft.549981C3F5F10" | Remove-AppxPackage
     Write-Output "done"
 }
-
 function RemoveIE {
     Write-Output "Uninstalling Internet Explorer..."
     Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -like "Internet-Explorer-Optional*" } | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
     Get-WindowsCapability -Online | Where-Object { $_.Name -like "Browser.InternetExplorer*" } | Remove-WindowsCapability -Online | Out-Null
     Write-Output "done"
 }
-
 function RemoveXboxBloat {
     Write-Output "Disabling Xbox bloat..."
 	Get-AppxPackage "Microsoft.XboxApp" | Remove-AppxPackage
