@@ -1,4 +1,5 @@
 # Basiaclly an automated version of WindowsToolbox, add or remove any functions that you want/don't want to use.
+# It's shit but it works -me, just now.
 # Self-elevate the script if required
 $myWindowsID=[System.Security.Principal.WindowsIdentity]::GetCurrent()
 $myWindowsPrincipal=new-object System.Security.Principal.WindowsPrincipal($myWindowsID)
@@ -23,10 +24,14 @@ if (-not $myWindowsPrincipal.IsInRole($adminRole))
        exit
    }
 
+#God fucking knows if this works
+Set-ExecutionPolicy Unrestricted -Scope CurrentUser
+ls -Recurse *.ps*1 | Unblock-File
+
 Set-Location $PSScriptRoot
 
-Import-Module .\library\Write-Menu.psm1 -DisableNameChecking
 Clear-Host
+Import-Module .\library\WinCore.psm1 -DisableNameChecking
 Import-Module .\library\PrivacyFunctions.psm1 -DisableNameChecking
 Import-Module .\library\Tweaks.psm1 -DisableNameChecking
 Import-Module .\library\GeneralFunctions.psm1 -DisableNameChecking
@@ -43,8 +48,11 @@ Checkpoint-Computer -Description "BeforePostInstall" -RestorePointType "MODIFY_S
 InstallChoco
 
 setup
+Write-Output "This is basically an automated version of WindowsToolbox, add or remove any functions that you want/don't want before running"
+Write-Output "It's shit but it works -me, just now"
+Read-Host "Press enter to continue"
 
-#Functions:
+#Run functions:
    #Debloat
         Write-Output "Debloating..."
         DisableWindowsDefender
@@ -103,12 +111,27 @@ setup
         choco install authy-desktop
         choco install winscp
         choco install 7zip
+        choco install nodejs
         $temp = "$env:APPDATA\WindowsToolbox\"
         $chromium = "https://github.com/Nifury/ungoogled-chromium-binaries/releases/download/97.0.4692.71-1/ungoogled-chromium_97.0.4692.71-1.1_installer-x64.exe"
         Write-Output "Downloading ungoogled-chromium..."
         Invoke-WebRequest -Uri $chromium -OutFile $temp\ungoogled-chromium-97.exe
         Start-Process "$temp\ungoogled-chromium-97.exe"
         MSDOSMode
+
+        refreshenv
+    #Configs
+        git config --global user.name khanhmuy
+        git config --global user.email maikhanhhuy0608@outlook.com
+        $gh = "C:\Users\$env:username\Documents\gh"
+        New-Item -Path $gh -ItemType directory -Force
+        cd $gh
+        Invoke-WebRequest -Uri "https://discord.com/api/download/canary?platform=win" -OutFile $temp\Discord-Canary.exe
+        Start-Process "$temp\Discord-Canary.exe"
+        git clone https://github.com/powercord-org/powercord
+        cd powercord
+        npm i
+        npm run plug
     #Restart
         $confirm = Read-Host "Are you sure you want to restart? (y/n) Remember to save your work first"
         if($confirm -eq "y") {
