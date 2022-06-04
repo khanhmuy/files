@@ -113,27 +113,23 @@ Read-Host "Press enter to continue"
         choco install 7zip
         choco install nodejs
         $temp = "$env:APPDATA\WindowsToolbox\"
-        $chromium = "https://github.com/Nifury/ungoogled-chromium-binaries/releases/download/97.0.4692.71-1/ungoogled-chromium_97.0.4692.71-1.1_installer-x64.exe"
+        $chromium = "https://github.com/Nifury/ungoogled-chromium-binaries/releases/download/102.0.5005.61/ungoogled-chromium_102.0.5005.61-1.1_installer_x64.exe"
         Write-Output "Downloading ungoogled-chromium..."
-        Invoke-WebRequest -Uri $chromium -OutFile $temp\ungoogled-chromium-97.exe
-        Start-Process "$temp\ungoogled-chromium-97.exe"
+        Invoke-WebRequest -Uri $chromium -OutFile $temp\ungoogled-chromium-102.exe
+        Start-Process "$temp\ungoogled-chromium-102.exe"
         MSDOSMode
 
         refreshenv
     #Configs
         git config --global user.name khanhmuy
         git config --global user.email maikhanhhuy0608@outlook.com
+        git config --global gpg.program "C:\Program Files (x86)\GnuPG\bin\gpg.exe"
+        git config --global commit.gpgsign true
         $gh = "C:\Users\$env:username\Documents\gh"
         New-Item -Path $gh -ItemType directory -Force
-        cd $gh
-        Invoke-WebRequest -Uri "https://discord.com/api/download/canary?platform=win" -OutFile $temp\Discord-Canary.exe
-        Start-Process "$temp\Discord-Canary.exe"
-        git clone https://github.com/powercord-org/powercord
-        cd powercord
-        npm i
-        npm run plug
+        Set-Location $gh
     #Restart
-        $confirm = Read-Host "Are you sure you want to restart? (y/n) Remember to save your work first"
+        $confirm = Read-Host "Are you sure you want to restart? (y/n) Remember to save your work first."
         if($confirm -eq "y") {
             Restart-Computer
         }
