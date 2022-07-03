@@ -2,11 +2,13 @@
 <html>
     <head>
         <title>hmuy's public files</title>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet" />
-        <link rel="stylesheet" href="https://hmuy.ml/style.css" />
-        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-        <link rel="icon" href="https://hmuy.ml/assets/pfp.png" type="image/x-icon">
-        <script src="script.js"></script>
+        
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+        <link rel="icon" href="../assets/pfp.png" type="image/x-icon">
+
+        <!-- metas -->
+        <meta charset="utf-8">
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <!-- discord embed meta -->
         <meta property="og:title" content="hmuy">
@@ -14,64 +16,76 @@
         <meta property="og:image" content="https://hmuy.ml/assets/pfp.png">
         <meta property="theme-color" content="#FFC0DD">
         <meta property="og:url" content="https://hmuy.ml/files">
-        <style>
-            html {
-                min-height: 100%;
-                overscroll-behavior: none;
-            }
-            body {
-                font-size: 18px;
-                text-align: center;
-            }
-            h2 {
-                font-size: 34px;
-                margin-bottom: 5px;
-            }
-            a {
-                color: inherit;
-                transition: ease-in-out 0.3s;
-            }
-            a:hover {
-                color: #ffc0dd;
-            }
-            .footer {
-                position: fixed;
-                left: 0;
-                bottom: 0;
-                width: 100%;
-                text-align: center;
-            }
-            .social {
-                width: 30px;
-                height: 30px;
-                margin-left: 5px;
-                margin-bottom: 10px;
-                filter: invert(55%);
-                transition: ease-in-out 0.3s;
-            }
-            .social:hover {
-                filter: invert(15%);
-            }
-            .homepage {
-                color: inherit;
-                transition: ease-in-out 0.3s;
-                text-align: center;
-            }
-            .homepage:hover {
-                color: #ffc0dd;
-            }
-        </style>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="https://hmuy.ml/style.css" />
+
+        <!-- TailwindCSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
     </head>
-    <body>
-        <h2><a href="https://hmuy.ml" class="homepage">hmuy</a>'s public files</h2>
-        <br>
-        <p><a href="https://drive.google.com/file/d/1RdmB7BSaI_F40FEKlc7-vxhmKmjyUF7s/view?usp=sharing">Windows 10 21H1 build 19044</a> (google drive, <a href="windows/modifications.txt">modified</a>)</p>
-        <p><a href="windows/autounattend.xml">my autounattend.xml</a> (save it manually by pressing ctrl+s)</p>
-        <p><a href="windows/activate.bat">activate.bat</a>(Windows 10/11 Pro only, use different KMS keys for different verions)</p>
-        <div class="footer">
-            <p>more files coming s0n!</p>
-            <a href="https://github.com/khanhmuy"><img src="https://khanhmuy.github.io/assets/github.svg" alt="github" class="social"></a>
-            <a href="https://twitter.com/hmuy0608"><img src="https://khanhmuy.github.io/assets/twitter.svg" alt="twitter" class="social"></a>
+    <body class="bg-white dark:bg-black text-black dark:text-white">
+        <nav class="z-50 w-full flex justify-start items-center mx-auto max-w-4xl px-8 my-20">
+            <a aria-label="home" class="focus:outline-none mr-10 transition duration-300 ease-in-out hover:text-pink-400 dark:hover:text-pink-200" href="https://hmuy.ml">
+                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="home" class="svg-inline--fa fa-home fa-w-18 w-4 h-4" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"></path></svg>
+            </a>
+            <a aria-label="projects" class="focus:outline-none mr-10 transition duration-300 ease-in-out hover:text-pink-400 dark:hover:text-pink-200" href="https://hmuy.ml/projects">
+                <span>/projects</span>
+            </a>
+            <a aria-label="files" class="focus:outline-none mr-10 transition duration-300 ease-in-out hover:text-pink-400 dark:hover:text-pink-200" href="https://files.hmuy.ml">
+                <span>/files</span>
+            </a>
+        </nav>
+        <div class="h-full lg:px-0 px-10">
+            <div class="flex flex-col max-w-3xl mx-auto mb-10 sm:px-0">
+                <h3><span class="text-4xl font-semibold focus:outline-none mr-2 transition duration-300 ease-in-out hover:text-pink-400 dark:hover:text-pink-200">hmuy's public files</span></h3>
+                <span class="text-base text-gray-600 dark:text-gray-400 max-w-sm mt-0">
+                    <p>Random files that I use, they suck idc.</p>
+                </span>
+            </div>
+            <div class="mt-8">
+                <div class="flex flex-col max-w-3xl mx-auto mb-16 sm:px-0">
+                    <div class="grid gap-6">
+                        <a href="https://drive.google.com/file/d/1RdmB7BSaI_F40FEKlc7-vxhmKmjyUF7s/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="focus:outline-none transition duration-300 ease-in-out transform hover:scale-102.5 flex flex-col sm:flex-row text-center sm:text-left px-8 sm:px-6 py-6 rounded-md border border-pink-300 shadow max-w-2xl hoverScale">
+                            <div class="flex items-center justify-center text-4xl w-full sm:w-1/12 mr-6 mb-4 sm:mb-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="svg-inline--fa bi bi-windows projIcon" viewBox="0 0 16 16">
+                                    <path d="M6.555 1.375 0 2.237v5.45h6.555V1.375zM0 13.795l6.555.933V8.313H0v5.482zm7.278-5.4.026 6.378L16 16V8.395H7.278zM16 0 7.33 1.244v6.414H16V0z"/>
+                                </svg>
+                            </div>
+                            <div class="flex flex-col items-center sm:items-start w-full sm:w-11/12">
+                                <div class="flex gap-2 items-center font-bold">Windows 10 21H1 build 19044, modified.</div>
+                                <div class="text-gray-600 dark:text-gray-300">Modifications: 
+                                    <li>Removed all UWP apps except Store</li>
+                                    <li>Removed windows defender 💀</li>
+                                    <li>Disabled windows update 💀</li>
+                                    <li>idk man i don't even remember</li>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="https://files.hmuy.ml/windows/autounattend.xml" target="_blank" rel="noopener noreferrer" class="focus:outline-none transition duration-300 ease-in-out transform hover:scale-102.5 flex flex-col sm:flex-row text-center sm:text-left px-8 sm:px-6 py-6 rounded-md border border-pink-300 shadow max-w-2xl hoverScale">
+                            <div class="flex items-center justify-center text-4xl w-full sm:w-1/12 mr-6 mb-4 sm:mb-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="svg-inline--fa bi bi-windows projIcon" viewBox="0 0 16 16">
+                                    <path d="M6.555 1.375 0 2.237v5.45h6.555V1.375zM0 13.795l6.555.933V8.313H0v5.482zm7.278-5.4.026 6.378L16 16V8.395H7.278zM16 0 7.33 1.244v6.414H16V0z"/>
+                                </svg>
+                            </div>
+                            <div class="flex flex-col items-center sm:items-start w-full sm:w-11/12">
+                                <div class="flex gap-2 items-center font-bold">My autounattend.xml</div>
+                                <div class="text-gray-600 dark:text-gray-300">(Save manually by pressing Ctrl / Cmd + S)</div>
+                            </div>
+                        </a>
+                        <a href="https://files.hmuy.ml/windows/activate.bat" target="_blank" rel="noopener noreferrer" class="focus:outline-none transition duration-300 ease-in-out transform hover:scale-102.5 flex flex-col sm:flex-row text-center sm:text-left px-8 sm:px-6 py-6 rounded-md border border-pink-300 shadow max-w-2xl hoverScale">
+                            <div class="flex items-center justify-center text-4xl w-full sm:w-1/12 mr-6 mb-4 sm:mb-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="svg-inline--fa bi bi-windows projIcon" viewBox="0 0 16 16">
+                                    <path d="M6.555 1.375 0 2.237v5.45h6.555V1.375zM0 13.795l6.555.933V8.313H0v5.482zm7.278-5.4.026 6.378L16 16V8.395H7.278zM16 0 7.33 1.244v6.414H16V0z"/>
+                                </svg>
+                            </div>
+                            <div class="flex flex-col items-center sm:items-start w-full sm:w-11/12">
+                                <div class="flex gap-2 items-center font-bold">activate.bat</div>
+                                <div class="text-gray-600 dark:text-gray-300">(Windows 10/11 Pro only, use different KMS keys for different verions)</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
 </html>
