@@ -112,6 +112,7 @@ Read-Host "Press enter to continue"
         choco install winscp
         choco install 7zip
         choco install nodejs
+        winget install Spotify.Spotify
         $temp = "$env:APPDATA\WindowsToolbox\"
         $chromium = "https://github.com/Nifury/ungoogled-chromium-binaries/releases/download/102.0.5005.61/ungoogled-chromium_102.0.5005.61-1.1_installer_x64.exe"
         Write-Output "Downloading ungoogled-chromium..."
@@ -128,6 +129,21 @@ Read-Host "Press enter to continue"
         $gh = "C:\Users\$env:username\Documents\gh"
         New-Item -Path $gh -ItemType directory -Force
         Set-Location $gh
+
+        $vscodeExtensions = "Catppuccin.catppuccin-vsc", "enkia.tokyo-night", "GitHub.copilot", "icrawl.discord-vscode", "ms-python.python", "ms-python.vscode-pylance", "ms-vscode.powershell", "ms-vsliveshare.vsliveshare", "praveenpuglia.tailwind-breeze", "seatonjiang.gitmoji-vscode", "shadowblood.tailwind-moon", "shd101wyy.markdown-preview-enhanced", "svelte.svelte-vscode"
+        foreach ($extension in $vscodeExtensions) {
+            Write-Output "Installing $extension for Visual Studio Code..."
+            code --install-extension $extension
+        }
+        Copy-Item $PSScriptRoot\configs\vscode\settings.json -Destination $env:APPDATA\Code\User
+
+        $terminalSettings = "C:\Users\$env:username\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
+        Copy-Item $PSScriptRoot\configs\terminal\settings.json -Destination $terminalSettings
+        winget install JanDeDobbeleer.OhMyPosh -s winget
+        Copy-Item $PSScriptRoot\configs\pwsh\Microsoft.PowerShell_profile.psm1 -Destination C:\Users\hmuy\Documents\WindowsPowerShell
+
+        Invoke-WebRequest -useb https://raw.githubusercontent.com/spicetify/spicetify-cli/master/install.ps1 | Invoke-Expression
+        Invoke-WebRequest -useb https://raw.githubusercontent.com/spicetify/spicetify-marketplace/main/resources/install.ps1 | Invoke-Expression
     #Restart
         $confirm = Read-Host "Are you sure you want to restart? (y/n) Remember to save your work first."
         if($confirm -eq "y") {

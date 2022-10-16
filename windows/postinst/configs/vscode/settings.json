@@ -1,0 +1,22 @@
+{
+    "security.workspace.trust.untrustedFiles": "open",
+    "editor.minimap.enabled": false,
+    "editor.inlineSuggest.enabled": true,
+    "vscode-edge-devtools.mirrorEdits": true,
+    "git.confirmSync": false,
+    "git.enableSmartCommit": true,
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    "telemetry.telemetryLevel": "off",
+    "git.autofetch": true,
+    "git.autofetchPeriod": 360,
+    "workbench.tree.indent": 20,
+    "github.copilot.enable": {
+        "*": true,
+        "yaml": false,
+        "plaintext": true,
+        "markdown": true
+    },
+    "workbench.colorTheme": "Catppuccin Mocha",
+    "svelte.enable-ts-plugin": true
+}
