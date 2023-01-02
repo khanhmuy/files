@@ -11,13 +11,9 @@
 		<component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<TimeZone>SE Asia Standard Time</TimeZone>
 			<AutoLogon>
-				<Enabled>true</Enabled>
+				<Enabled>false</Enabled>
 				<LogonCount>9999999</LogonCount>
 				<Username>hmuy</Username>
-				<Password>
-					<PlainText>false</PlainText>
-					<Value>SwBoAGEAbgBoAGgAdQB5ADAANgAwADgAMQAyADMAUABhAHMAcwB3AG8AcgBkAA==</Value>
-				</Password>
 			</AutoLogon>
 			<OEMInformation>
 				<Manufacturer>Dell</Manufacturer>
@@ -35,10 +31,6 @@
 						<DisplayName>hmuy</DisplayName>
 						<Group>Administrators</Group>
 						<Name>hmuy</Name>
-						<Password>
-							<PlainText>false</PlainText>
-							<Value>SwBoAGEAbgBoAGgAdQB5ADAANgAwADgAMQAyADMAUABhAHMAcwB3AG8AcgBkAA==</Value>
-						</Password>
 					</LocalAccount>
 				</LocalAccounts>
 			</UserAccounts>

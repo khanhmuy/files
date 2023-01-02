@@ -1,5 +1,7 @@
 # Basiaclly an automated version of WindowsToolbox, add or remove any functions that you want/don't want to use.
 # It's shit but it works -me, just now.
+# this thing is so janky lmao
+
 # Self-elevate the script if required
 $myWindowsID=[System.Security.Principal.WindowsIdentity]::GetCurrent()
 $myWindowsPrincipal=new-object System.Security.Principal.WindowsPrincipal($myWindowsID)
@@ -96,29 +98,16 @@ Read-Host "Press enter to continue"
         Start-Sleep 10
     #Install apps
         Write-Output "Installing apps..."
-        choco install discord
-        choco install zoom
-        choco install vscode
-        choco install git
-        choco install gh
-        choco install python3
-        choco install microsoft-windows-terminal
-        choco install itunes
-        choco install vlc
-        choco install bitwarden
-        choco install winaero-tweaker
-        choco install gpg4win
-        choco install authy-desktop
-        choco install winscp
-        choco install 7zip
-        choco install nodejs
-        winget install Spotify.Spotify
+        choco install discord zoom vscode git gh python3 microsoft-windows-terminal vlc winaero-tweaker gpg4win authy-desktop winscp 7zip nodejs spotify motrix obs
         $temp = "$env:APPDATA\WindowsToolbox\"
         $chromium = "https://github.com/Nifury/ungoogled-chromium-binaries/releases/download/102.0.5005.61/ungoogled-chromium_102.0.5005.61-1.1_installer_x64.exe"
         Write-Output "Downloading ungoogled-chromium..."
         Invoke-WebRequest -Uri $chromium -OutFile $temp\ungoogled-chromium-102.exe
         Start-Process "$temp\ungoogled-chromium-102.exe"
         MSDOSMode
+        Write-Output "osu! moment"
+        Invoke-WebRequest -Uri "https://m1.ppy.sh/r/osu!install.exe" -OutFile $temp\osu.exe
+        Start-Process "$temp\osu.exe"
 
         refreshenv
     #Configs
@@ -135,15 +124,23 @@ Read-Host "Press enter to continue"
             Write-Output "Installing $extension for Visual Studio Code..."
             code --install-extension $extension
         }
-        Copy-Item $PSScriptRoot\configs\vscode\settings.json -Destination $env:APPDATA\Code\User
 
         $terminalSettings = "C:\Users\$env:username\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
         Copy-Item $PSScriptRoot\configs\terminal\settings.json -Destination $terminalSettings
         winget install JanDeDobbeleer.OhMyPosh -s winget
         Copy-Item $PSScriptRoot\configs\pwsh\Microsoft.PowerShell_profile.psm1 -Destination C:\Users\hmuy\Documents\WindowsPowerShell
 
+        Start-Process "C:\Users\hmuy\AppData\Roaming\Spotify\Spotify.exe"
         Invoke-WebRequest -useb https://raw.githubusercontent.com/spicetify/spicetify-cli/master/install.ps1 | Invoke-Expression
         Invoke-WebRequest -useb https://raw.githubusercontent.com/spicetify/spicetify-marketplace/main/resources/install.ps1 | Invoke-Expression
+        refreshenv
+        git clone https://github.com/catppuccin/spicetify.git $temp
+        Copy-Item $temp\spicetify\catppuccin-mocha -Destination $env:APPDATA\Spicetify\Themes
+        Copy-Item $temp\js\catppuccin-mocha.js -Destination $env:APPDATA\Spicetify\Extensions
+        spicetify config current_theme catppuccin-mocha
+        spicetify config color_scheme pink
+        spicetify config inject_css 1 replace_colors 1 overwrite_assets 1
+        spicetify config extensions catppuccin-mocha.js
     #Restart
         $confirm = Read-Host "Are you sure you want to restart? (y/n) Remember to save your work first."
         if($confirm -eq "y") {
