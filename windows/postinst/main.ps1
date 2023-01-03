@@ -129,6 +129,7 @@ Read-Host "Press enter to continue"
         Copy-Item $PSScriptRoot\configs\terminal\settings.json -Destination $terminalSettings
         winget install JanDeDobbeleer.OhMyPosh -s winget
         Copy-Item $PSScriptRoot\configs\pwsh\Microsoft.PowerShell_profile.psm1 -Destination C:\Users\hmuy\Documents\WindowsPowerShell
+        Copy-Item $PSScriptRoot\configs\pwsh\candy_custom.omp.json -Destination C:\Users\hmuy\
 
         Start-Process "C:\Users\hmuy\AppData\Roaming\Spotify\Spotify.exe"
         Invoke-WebRequest -useb https://raw.githubusercontent.com/spicetify/spicetify-cli/master/install.ps1 | Invoke-Expression
