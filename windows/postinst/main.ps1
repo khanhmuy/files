@@ -28,7 +28,7 @@ if (-not $myWindowsPrincipal.IsInRole($adminRole))
 
 #God fucking knows if this works
 Set-ExecutionPolicy Unrestricted -Scope CurrentUser
-ls -Recurse *.ps*1 | Unblock-File
+Get-ChildItem -Recurse *.ps*1 | Unblock-File
 
 Set-Location $PSScriptRoot
 
@@ -98,16 +98,11 @@ Read-Host "Press enter to continue"
         Start-Sleep 10
     #Install apps
         Write-Output "Installing apps..."
-        choco install discord zoom vscode git gh python3 microsoft-windows-terminal vlc winaero-tweaker gpg4win authy-desktop winscp 7zip nodejs spotify motrix obs
+        choco install firefox discord zoom vscode git gh python3 microsoft-windows-terminal vlc winaero-tweaker gpg4win authy-desktop winscp 7zip nodejs spotify motrix obs nodejs-lts visualstudio2019-workload-vctools
         $temp = "$env:APPDATA\WindowsToolbox\"
-        $chromium = "https://github.com/Nifury/ungoogled-chromium-binaries/releases/download/102.0.5005.61/ungoogled-chromium_102.0.5005.61-1.1_installer_x64.exe"
-        Write-Output "Downloading ungoogled-chromium..."
-        Invoke-WebRequest -Uri $chromium -OutFile $temp\ungoogled-chromium-102.exe
-        Start-Process "$temp\ungoogled-chromium-102.exe"
-        MSDOSMode
         Write-Output "osu! moment"
-        Invoke-WebRequest -Uri "https://m1.ppy.sh/r/osu!install.exe" -OutFile $temp\osu.exe
-        Start-Process "$temp\osu.exe"
+        Invoke-WebRequest -Uri "https://m1.ppy.sh/r/osu!install.exe" -OutFile $temp\osu!install.exe
+        Start-Process "$temp\osu!install.exe"
 
         refreshenv
     #Configs
@@ -119,15 +114,9 @@ Read-Host "Press enter to continue"
         New-Item -Path $gh -ItemType directory -Force
         Set-Location $gh
 
-        $vscodeExtensions = "Catppuccin.catppuccin-vsc", "enkia.tokyo-night", "GitHub.copilot", "icrawl.discord-vscode", "ms-python.python", "ms-python.vscode-pylance", "ms-vscode.powershell", "ms-vsliveshare.vsliveshare", "praveenpuglia.tailwind-breeze", "seatonjiang.gitmoji-vscode", "shadowblood.tailwind-moon", "shd101wyy.markdown-preview-enhanced", "svelte.svelte-vscode"
-        foreach ($extension in $vscodeExtensions) {
-            Write-Output "Installing $extension for Visual Studio Code..."
-            code --install-extension $extension
-        }
-
         $terminalSettings = "C:\Users\$env:username\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
         Copy-Item $PSScriptRoot\configs\terminal\settings.json -Destination $terminalSettings
-        winget install JanDeDobbeleer.OhMyPosh -s winget
+        Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://ohmyposh.dev/install.ps1'))
         Copy-Item $PSScriptRoot\configs\pwsh\Microsoft.PowerShell_profile.psm1 -Destination C:\Users\hmuy\Documents\WindowsPowerShell
         Copy-Item $PSScriptRoot\configs\pwsh\candy_custom.omp.json -Destination C:\Users\hmuy\
 
