@@ -97,8 +97,9 @@ Read-Host "Press enter to continue"
         Write-Output "Waiting for explorer to complete loading"
         Start-Sleep 10
     #Install apps
+        # yes im using choco because winget gets whacky on modded windows, dont fucking @ me
         Write-Output "Installing apps..."
-        choco install firefox discord zoom vscode git gh python3 microsoft-windows-terminal vlc winaero-tweaker gpg4win authy-desktop winscp 7zip nodejs spotify motrix obs nodejs-lts visualstudio2019-workload-vctools
+        choco install firefox discord zoom vscode git gh python3 microsoft-windows-terminal vlc winaero-tweaker gpg4win authy-desktop winscp 7zip nodejs spotify motrix obs ffmpeg yt-dlp nodejs-lts visualstudio2019-workload-vctools
         $temp = "$env:APPDATA\WindowsToolbox\"
         Write-Output "osu! moment"
         Invoke-WebRequest -Uri "https://m1.ppy.sh/r/osu!install.exe" -OutFile $temp\osu!install.exe
@@ -106,10 +107,6 @@ Read-Host "Press enter to continue"
 
         refreshenv
     #Configs
-        git config --global user.name khanhmuy
-        git config --global user.email maikhanhhuy0608@outlook.com
-        git config --global gpg.program "C:\Program Files (x86)\GnuPG\bin\gpg.exe"
-        git config --global commit.gpgsign true
         $gh = "C:\Users\$env:username\Documents\gh"
         New-Item -Path $gh -ItemType directory -Force
         Set-Location $gh
@@ -131,6 +128,20 @@ Read-Host "Press enter to continue"
         spicetify config color_scheme pink
         spicetify config inject_css 1 replace_colors 1 overwrite_assets 1
         spicetify config extensions catppuccin-mocha.js
+    #Activate
+        Invoke-RestMethod https://massgrave.dev/get | Invoke-Expression
+    # Import ssh key(s)
+        $sshPath = Read-Host "Enter the path to your ssh key(s) (leave blank if you don't have any)"
+        if($sshPath -ne "") {
+            $check = Test-Path $sshPath
+            if ($check -eq $true) {
+                Copy-Item $sshPath -Destination $env:USERPROFILE\.ssh
+            } else {
+                Write-Output "Path does not exist!"
+            }
+        } else {
+            Write-Output "Skipping..."
+        }
     #Restart
         $confirm = Read-Host "Are you sure you want to restart? (y/n) Remember to save your work first."
         if($confirm -eq "y") {
