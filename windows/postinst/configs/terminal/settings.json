@@ -32,17 +32,18 @@
     "copyFormatting": "none",
     "copyOnSelect": false,
     "defaultProfile": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+    "language": "en-US",
     "profiles": 
     {
         "defaults": 
         {
             "backgroundImage": null,
             "backgroundImageOpacity": 1.0,
-            "colorScheme": "One Half Dark",
+            "colorScheme": "Catppuccin Mocha",
             "font": 
             {
                 "face": "MesloLGM Nerd Font Mono",
-                "size": 10,
+                "size": 10.0,
                 "weight": "semi-light"
             }
         },
@@ -300,5 +301,6 @@
             "white": "#C0C0C0",
             "yellow": "#808000"
         }
-    ]
+    ],
+    "themes": []
 }

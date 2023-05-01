@@ -39,6 +39,12 @@ Import-Module .\library\Tweaks.psm1 -DisableNameChecking
 Import-Module .\library\GeneralFunctions.psm1 -DisableNameChecking
 Import-Module .\library\DebloatFunctions.psm1 -DisableNameChecking
 
+
+setup
+Write-Output "This is basically an automated version of WindowsToolbox, add or remove any functions that you want/don't want before running"
+Write-Output "It's shit but it (barely) works -me, just now"
+Read-Host "Press enter to continue"
+
 #Force TLS 1.2 for chocolatey support
 [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
 
@@ -49,16 +55,9 @@ Checkpoint-Computer -Description "BeforePostInstall" -RestorePointType "MODIFY_S
 #Install chocolatey
 InstallChoco
 
-setup
-Write-Output "This is basically an automated version of WindowsToolbox, add or remove any functions that you want/don't want before running"
-Write-Output "It's shit but it works -me, just now"
-Read-Host "Press enter to continue"
-
 #Run functions:
    #Debloat
         Write-Output "Debloating..."
-        DisableWindowsDefender
-        DisableWindowsDefenderCloud
         RemoveOneDrive
         RemoveDefaultApps
         DisableCortana
@@ -81,8 +80,6 @@ Read-Host "Press enter to continue"
         DisableSuperfetch
         UseUTC
         ImproveSSD
-        RemoveThisPClutter
-        ShowBuildNumberOnDesktop
         ShowExplorerFullPath
         SetExplorerThisPC
         ShowFileExtensions
@@ -97,9 +94,9 @@ Read-Host "Press enter to continue"
         Write-Output "Waiting for explorer to complete loading"
         Start-Sleep 10
     #Install apps
-        # yes im using choco because winget gets whacky on modded windows, dont fucking @ me
+        # yes im using choco because winget gets whacky on modded windows, dont @ me
         Write-Output "Installing apps..."
-        choco install firefox discord zoom vscode git gh python3 microsoft-windows-terminal vlc winaero-tweaker gpg4win authy-desktop winscp 7zip nodejs spotify motrix obs ffmpeg yt-dlp nodejs-lts visualstudio2019-workload-vctools
+        choco install firefox discord zoom vscode git gh python3 microsoft-windows-terminal vlc winaero-tweaker gpg4win authy-desktop winscp 7zip spotify motrix obs ffmpeg yt-dlp
         $temp = "$env:APPDATA\WindowsToolbox\"
         Write-Output "osu! moment"
         Invoke-WebRequest -Uri "https://m1.ppy.sh/r/osu!install.exe" -OutFile $temp\osu!install.exe
@@ -114,16 +111,16 @@ Read-Host "Press enter to continue"
         $terminalSettings = "C:\Users\$env:username\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
         Copy-Item $PSScriptRoot\configs\terminal\settings.json -Destination $terminalSettings
         Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://ohmyposh.dev/install.ps1'))
-        Copy-Item $PSScriptRoot\configs\pwsh\Microsoft.PowerShell_profile.psm1 -Destination C:\Users\hmuy\Documents\WindowsPowerShell
-        Copy-Item $PSScriptRoot\configs\pwsh\candy_custom.omp.json -Destination C:\Users\hmuy\
+        Copy-Item $PSScriptRoot\configs\pwsh\Microsoft.PowerShell_profile.psm1 -Destination $env:USERPROFILE\Documents\WindowsPowerShell
+        Copy-Item $PSScriptRoot\configs\pwsh\candy_custom.omp.json -Destination $env:USERPROFILE
 
-        Start-Process "C:\Users\hmuy\AppData\Roaming\Spotify\Spotify.exe"
+        Start-Process $env:APPDATA\Spotify\Spotify.exe
         Invoke-WebRequest -useb https://raw.githubusercontent.com/spicetify/spicetify-cli/master/install.ps1 | Invoke-Expression
         Invoke-WebRequest -useb https://raw.githubusercontent.com/spicetify/spicetify-marketplace/main/resources/install.ps1 | Invoke-Expression
         refreshenv
-        git clone https://github.com/catppuccin/spicetify.git $temp
+        git clone https://github.com/catppuccin/spicetify.git $temp\spicetify
         Copy-Item $temp\spicetify\catppuccin-mocha -Destination $env:APPDATA\Spicetify\Themes
-        Copy-Item $temp\js\catppuccin-mocha.js -Destination $env:APPDATA\Spicetify\Extensions
+        Copy-Item $temp\spicetify\js\catppuccin-mocha.js -Destination $env:APPDATA\Spicetify\Extensions
         spicetify config current_theme catppuccin-mocha
         spicetify config color_scheme pink
         spicetify config inject_css 1 replace_colors 1 overwrite_assets 1
