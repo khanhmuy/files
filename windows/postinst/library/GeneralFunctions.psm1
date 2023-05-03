@@ -1,7 +1,7 @@
 # General functions
 
 $version = "1.0.5 (2022.3.8)"
-$title = "Windows Toolbox $version"
+$title = "not windowstoolbox"
 $host.UI.RawUI.WindowTitle = $title
 $build = (Get-CimInstance Win32_OperatingSystem).version
 $winver = (Get-WmiObject -class Win32_OperatingSystem).Caption
