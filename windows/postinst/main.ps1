@@ -97,10 +97,7 @@ InstallChoco
         # yes im using choco because winget gets whacky on modded windows, dont @ me
         Write-Output "Installing apps..."
         choco install firefox discord zoom vscode git gh python3 microsoft-windows-terminal vlc winaero-tweaker gpg4win authy-desktop winscp 7zip spotify motrix obs ffmpeg yt-dlp
-        $temp = "$env:APPDATA\WindowsToolbox\"
-        Write-Output "osu! moment"
-        Invoke-WebRequest -Uri "https://m1.ppy.sh/r/osu!install.exe" -OutFile $temp\osu!install.exe
-        Start-Process "$temp\osu!install.exe"
+        $temp = "$env:APPDATA\WindowsToolbox"
 
         refreshenv
     #Configs
@@ -119,8 +116,8 @@ InstallChoco
         Invoke-WebRequest -useb https://raw.githubusercontent.com/spicetify/spicetify-marketplace/main/resources/install.ps1 | Invoke-Expression
         refreshenv
         git clone https://github.com/catppuccin/spicetify.git $temp\spicetify
-        Copy-Item $temp\spicetify\catppuccin-mocha -Destination $env:APPDATA\Spicetify\Themes
-        Copy-Item $temp\spicetify\js\catppuccin-mocha.js -Destination $env:APPDATA\Spicetify\Extensions
+        Copy-Item $temp\spicetify\catppuccin-mocha -Destination $env:APPDATA\Spicetify\Themes\catppuccin-mocha -Recurse
+        Copy-Item $temp\spicetify\js\catppuccin-mocha.js -Destination $env:APPDATA\Spicetify\Extensions\catppuccin-mocha.js
         spicetify config current_theme catppuccin-mocha
         spicetify config color_scheme pink
         spicetify config inject_css 1 replace_colors 1 overwrite_assets 1
