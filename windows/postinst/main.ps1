@@ -41,8 +41,8 @@ Import-Module .\library\DebloatFunctions.psm1 -DisableNameChecking
 
 
 setup
-Write-Output "This is basically an automated version of WindowsToolbox, add or remove any functions that you want/don't want before running"
-Write-Output "It's shit but it (barely) works -me, just now"
+Write-Output "This is basically an automated version of WindowsToolbox, add or remove any functions that you want/don't want before running. You should have read the code beforehand anyway."
+Write-Output "It's shit but it (barely) works -me, some 2 years ago."
 Read-Host "Press enter to continue"
 
 #Force TLS 1.2 for chocolatey support
@@ -73,8 +73,7 @@ InstallChoco
         DisableActivityHistory
     #Tweaks
         Write-Output "Applying tweaks..."
-        RAM 
-        EnablePhotoViewer
+        RAM
         DisablePrefetchPrelaunch
         DisableEdgePrelaunch
         DisableSuperfetch
@@ -87,6 +86,7 @@ InstallChoco
         DisableAccessibilityKeys
         SetWinXMenuCMD
         EnableVerboseStartup
+        EnableClassicMenu
         Write-Output "Killing Explorer process..."
         taskkill.exe /F /IM "explorer.exe"
         Write-Output "Restarting Explorer..."
@@ -96,9 +96,7 @@ InstallChoco
     #Install apps
         # yes im using choco because winget gets whacky on modded windows, dont @ me
         Write-Output "Installing apps..."
-        choco install firefox discord zoom vscode git gh python3 microsoft-windows-terminal vlc winaero-tweaker gpg4win authy-desktop winscp 7zip spotify motrix obs ffmpeg yt-dlp
-        $temp = "$env:APPDATA\WindowsToolbox"
-
+        choco install firefox discord zoom vscode git gh python3 microsoft-windows-terminal vlc winaero-tweaker gpg4win authy-desktop winscp 7zip spotify motrix obs ffmpeg yt-dlp -y
         refreshenv
     #Configs
         $gh = "C:\Users\$env:username\Documents\gh"
@@ -115,27 +113,6 @@ InstallChoco
         Invoke-WebRequest -useb https://raw.githubusercontent.com/spicetify/spicetify-cli/master/install.ps1 | Invoke-Expression
         Invoke-WebRequest -useb https://raw.githubusercontent.com/spicetify/spicetify-marketplace/main/resources/install.ps1 | Invoke-Expression
         refreshenv
-        git clone https://github.com/catppuccin/spicetify.git $temp\spicetify
-        Copy-Item $temp\spicetify\catppuccin-mocha -Destination $env:APPDATA\Spicetify\Themes\catppuccin-mocha -Recurse
-        Copy-Item $temp\spicetify\js\catppuccin-mocha.js -Destination $env:APPDATA\Spicetify\Extensions\catppuccin-mocha.js
-        spicetify config current_theme catppuccin-mocha
-        spicetify config color_scheme pink
-        spicetify config inject_css 1 replace_colors 1 overwrite_assets 1
-        spicetify config extensions catppuccin-mocha.js
-    #Activate
-        Invoke-RestMethod https://massgrave.dev/get | Invoke-Expression
-    # Import ssh key(s)
-        $sshPath = Read-Host "Enter the path to your ssh key(s) (leave blank if you don't have any)"
-        if($sshPath -ne "") {
-            $check = Test-Path $sshPath
-            if ($check -eq $true) {
-                Copy-Item $sshPath -Destination $env:USERPROFILE\.ssh
-            } else {
-                Write-Output "Path does not exist!"
-            }
-        } else {
-            Write-Output "Skipping..."
-        }
     #Restart
         $confirm = Read-Host "Are you sure you want to restart? (y/n) Remember to save your work first."
         if($confirm -eq "y") {
